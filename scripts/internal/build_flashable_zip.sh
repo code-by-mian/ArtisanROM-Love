@@ -284,6 +284,7 @@ GENERATE_UPDATER_SCRIPT()
     [ -f "$TMP_DIR/vendor_dlkm.new.dat${BROTLI_EXTENSION}" ] && HAS_VENDOR_DLKM=true && PARTITION_COUNT=$((PARTITION_COUNT + 1))
     [ -f "$TMP_DIR/odm_dlkm.new.dat${BROTLI_EXTENSION}" ] && HAS_ODM_DLKM=true && PARTITION_COUNT=$((PARTITION_COUNT + 1))
     [ -f "$TMP_DIR/system_dlkm.new.dat${BROTLI_EXTENSION}" ] && HAS_SYSTEM_DLKM=true && PARTITION_COUNT=$((PARTITION_COUNT + 1))
+    [ -f "$SRC_DIR/target/$TARGET_CODENAME/postinstall.edify" ] && HAS_POST_INSTALL=true
 
     {
         if [ -n "$TARGET_ASSERT_MODEL" ]; then
@@ -442,6 +443,10 @@ GENERATE_UPDATER_SCRIPT()
         if [ -f "$SRC_DIR/target/$TARGET_CODENAME/installer/install-end.edify" ]; then
             cat "$SRC_DIR/target/$TARGET_CODENAME/installer/install-end.edify"
         fi
+        
+        if $HAS_POST_INSTALL; then
+            cat "$SRC_DIR/target/$TARGET_CODENAME/postinstall.edify"
+        fi
 
         echo    'set_progress(1.000000);'
         echo    'ui_print("****************************************");'
@@ -484,6 +489,7 @@ PRINT_HEADER()
     echo -n "Welcome to ArtisanROM $ROM_CODENAME $ROM_VERSION for $TARGET_NAME!"
     echo    '");'
     echo    'ui_print("ArtisanROM developed by Android Artisan @XDAforums");'
+    echo    'ui_print("Build For SM-8250 Devices by Mian Hamza @XDAforums");'
     echo    'ui_print("UN1CA build system coded by salvo_giangri @XDAforums");'
     echo    'ui_print("Special thanks to all ArtisanROM Maintainers, Contribuitors and Testers");'
     echo    'ui_print("****************************************************");'
