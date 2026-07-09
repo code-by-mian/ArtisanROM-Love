@@ -94,3 +94,12 @@ DELETE_FROM_WORK_DIR "vendor" "bin/hw/android.hardware.configstore@1.1-service"
 DELETE_FROM_WORK_DIR "vendor" "etc/init/android.hardware.configstore@1.1-service.rc"
 DELETE_FROM_WORK_DIR "vendor" "etc/seccomp_policy/configstore@1.1.policy"
 LOG_STEP_OUT
+
+LOG_STEP_IN "- Remove Samsung Encryption"
+sed -i -E \
+    's/^([^#].*?)fileencryption=[^,]*(.*)$/# &\n\1encryptable\2/' \
+    "$WORK_DIR/vendor/etc/fstab.qcom"
+sed -i -E \
+    's/^([^#].*?)forceencrypt=[^,]*(.*)$/# &\n\1encryptable\2/' \
+    "$WORK_DIR/vendor/etc/fstab.qcom"
+LOG_STEP_OUT
