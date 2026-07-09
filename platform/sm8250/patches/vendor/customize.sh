@@ -32,18 +32,6 @@ if [[ "$TARGET_CODENAME" == "x1q" || \
     LOG_STEP_OUT
 fi
 
-if [ "$CODENAME" = "r8q" ]; then
-   LOG_STEP_IN "- Adding a73xqxx light blobs"
-   ADD_TO_WORK_DIR "a73xqxx" "vendor" "bin/hw/vendor.samsung.hardware.light-service"
-   ADD_TO_WORK_DIR "a73xqxx" "vendor" "lib64/vendor.samsung.hardware.light-V1-ndk_platform.so"
-   LOG_STEP_OUT
-fi
-
-if [ "$CODENAME" = "r8q" ]; then
-   LOG_STEP_IN "- Adding a52qnsxx wifi blobs"
-   ADD_TO_WORK_DIR "a52qnsxx" "vendor" "bin/hw/wpa_supplicant" 0 2000 755 "u:object_r:hal_wifi_supplicant_default_exec:s0"
-   LOG_STEP_OUT
-fi
 
 LOG_STEP_IN "- Adding a73xqxx MIDAS"
 DELETE_FROM_WORK_DIR "vendor" "etc/midas"
@@ -89,39 +77,12 @@ LOG_STEP_IN "- Enabling Vulkan"
 SET_PROP "vendor" "ro.hwui.use_vulkan" "true"
 LOG_STEP_OUT
 
-LOG_STEP_IN "- Setting Adaptive HFR flags"
-if [[ "$TARGET_CODENAME" != "c1q" ]]; then
-    SET_PROP "vendor" "debug.sf.show_refresh_rate_overlay_render_rate" "true"
-    SET_PROP "vendor" "ro.surface_flinger.game_default_frame_rate_override" "60"
-    SET_PROP "vendor" "ro.surface_flinger.use_content_detection_for_refresh_rate" "false"
-    SET_PROP "vendor" "ro.surface_flinger.enable_frame_rate_override" "false"
-fi
-LOG_STEP_OUT
-
 LOG_STEP_IN "- wifi+security Prop"
 SET_PROP "vendor" "wlan.wfd.hdcp" "disabled"
 SET_PROP "vendor" "wifi.interface" "wlan0"
 SET_PROP "vendor" "ro.security.vaultkeeper.native" "0"
 SET_PROP "vendor" "ro.security.vaultkeeper.feature" "0"
 LOG_STEP_OUT
-
-echo "Fix NFC for G781B"
-if ! grep -q "G781B" "$WORK_DIR/vendor/etc/init/init.nfc.samsung.rc"; then
-    {
-        echo ""
-        echo "on property:ro.boot.em.model=SM-G781B"
-        echo "    setprop ro.boot.product.hardware.sku \"s3fwrn5\""
-        echo "    setprop ro.vendor.nfc.feature.chipname \"SLSI\""
-        echo ""
-        echo "on property:ro.boot.em.model=SM-G7810"
-        echo "    setprop ro.boot.product.hardware.sku \"s3fwrn5\""
-        echo "    setprop ro.vendor.nfc.feature.chipname \"SLSI\""
-        echo ""
-        echo "on property:ro.boot.em.model=SM-G781N"
-        echo "    setprop ro.boot.product.hardware.sku \"s3fwrn5\""
-        echo "    setprop ro.vendor.nfc.feature.chipname \"SLSI\""
-    } >> "$WORK_DIR/vendor/etc/init/init.nfc.samsung.rc"
-fi
 
 LOG_STEP_IN "- Replacing singletake blobs with dm3qxxx"
 DELETE_FROM_WORK_DIR "vendor" "etc/singletake"
