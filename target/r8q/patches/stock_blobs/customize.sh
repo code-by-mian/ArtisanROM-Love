@@ -11,3 +11,7 @@ LOG_STEP_IN "-Add stock ev_lux_map_config.xml"
 ADD_TO_WORK_DIR "$TARGET_FIRMWARE" "system" "system/etc/ev_lux_map_config.xml" 0 0 644 "u:object_r:system_file:s0"
 LOG_STEP_OUT
 
+LOG_STEP_IN "- Add Camera app"
+ADD_TO_WORK_DIR "a73xqxx" "system" "system/priv-app/PhotoRemasterService/PhotoRemasterService.apk" 0 0 644 "u:object_r:system_file:s0"
+ADD_TO_WORK_DIR "a73xqxx" "system" "system/priv-app/SamsungCamera/SamsungCamera.apk" 0 0 644 "u:object_r:system_file:s0" 
+LOG_STEP_OUT
