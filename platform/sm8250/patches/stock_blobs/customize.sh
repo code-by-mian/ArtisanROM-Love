@@ -36,18 +36,6 @@ ADD_TO_WORK_DIR "a73xqxx" "system" "system/lib/libhwui.so" 0 0 644 "u:object_r:s
 ADD_TO_WORK_DIR "a73xqxx" "system" "system/lib64/libhwui.so" 0 0 644 "u:object_r:system_lib_file:s0"
 LOG_STEP_OUT
 
-if [[ "$TARGET_CODENAME" == "c2q" || "$TARGET_CODENAME" == "c1q" ]]; then
-    LOG_STEP_IN "- Adding Spen apk"
-    ADD_TO_WORK_DIR "p3qxxx" "system" "system/priv-app/AirCommand/AirCommand.apk" 0 0 644 "u:object_r:system_file:s0"
-    ADD_TO_WORK_DIR "p3qxxx" "system" "system/priv-app/AirReadingGlass/AirReadingGlass.apk" 0 0 644 "u:object_r:system_file:s0"
-    LOG_STEP_OUT
-fi
-
-if [[ "$TARGET_CODENAME" == "c2q" || "$TARGET_CODENAME" == "c1q" ]]; then
-    LOG_STEP_IN "- Adding SPen SEC Feature"
-    ADD_TO_WORK_DIR "$TARGET_FIRMWARE" "system" "system/etc/permissions/com.sec.feature.spen_usp_level40.xml" 0 0 644 "u:object_r:system_file:s0"
-    LOG_STEP_OUT
-fi
 
 LOG_STEP_IN "- Adding a73xqxx keymaster libs"
 DELETE_FROM_WORK_DIR "system" "system/lib/android.hardware.security.secureclock-V1-ndk.so"
