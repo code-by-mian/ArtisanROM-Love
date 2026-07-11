@@ -576,21 +576,22 @@ while IFS= read -r f; do
     fi
 done < <(find "$TMP_DIR" -maxdepth 1 -type f -name "*.img")
 
-if [ -d "$WORK_DIR/kernel" ]; then
+if [ -d "platform/kernels/$TARGET_CODENAME" ]; then
     while IFS= read -r f; do
         IMG="$(basename "$f")"
 
         LOG_STEP_IN "- Copying $IMG"
 
-        cp -a "$WORK_DIR/kernel/$IMG" "$TMP_DIR/$IMG"
+        cp -a "platform/kernels/$TARGET_CODENAME/$IMG" "$TMP_DIR/$IMG"
 
         if ! $TARGET_DISABLE_AVB_SIGNING; then
             SIGN_IMAGE_WITH_AVB "$TMP_DIR/$IMG"
         fi
 
         LOG_STEP_OUT
-    done < <(find "$WORK_DIR/kernel" -maxdepth 1 -type f -name "*.img")
+    done < <(find "platform/kernels/$TARGET_CODENAME" -maxdepth 1 -type f -name "*.img")
 fi
+
 
 
 if [ -f "$WORK_DIR/up_param.bin" ]; then
