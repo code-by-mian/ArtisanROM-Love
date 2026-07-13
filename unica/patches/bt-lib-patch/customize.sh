@@ -46,7 +46,7 @@ if [ "$SOURCE_PLATFORM_SDK_VERSION" -eq 36 ]; then
     # Before: 2897773948050037
     # After:  289777392a000014
     HEX_PATCH "$WORK_DIR/system/system/lib64/libbluetooth_jni.so" \
-        "2897773948050037" "289777392a000014" || LOG "- Skipping missing S22 base patch"
+        "2897673948050037" "289777392a000014" || LOG "- Skipping missing S22 base patch"
 
 else
     LOG "\033[0;33m! Unsupported SDK/API level: $SOURCE_PLATFORM_SDK_VERSION — skipping Bluetooth patch\033[0m"
