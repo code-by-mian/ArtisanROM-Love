@@ -3,11 +3,11 @@
 
 # Only the below variable(s) need to be changed!
 VERSION_MAJOR=3
-VERSION_MINOR=5
-VERSION_PATCH=1
+VERSION_MINOR=1
+VERSION_PATCH=0
 
 # The below variables will be generated automatically
 #
 # Version name
 ROM_VERSION="${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
-ROM_CODENAME="Quant"
+ROM_CODENAME="Dragon"
